@@ -1,0 +1,64 @@
+﻿@model BookStoreManagement_1.Models.Cart
+
+<div class="container mt-4">
+    <h2>Your Cart</h2>
+
+    @if (Model == null || !Model.Items.Any())
+    {
+        <p>The cart is empty.</p>
+        <a asp-action="Shop" class="btn btn-primary">Continue Shopping</a>
+    }
+    else
+    {
+        @if (ViewData["Error"] != null)
+        {
+            <div class="alert alert-danger">
+                @ViewData["Error"]
+            </div>
+        }
+        <table class="table table-bordered align-middle">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th style="width:120px;">Quantity</th>
+                    <th>Total</th>
+                    <th style="width:100px;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.Book.Title</td> 
+                        <td>₹@item.Book.Price</td>
+                        <td>
+                            <form asp-action="UpdateQuantity" method="post" class="d-flex">
+                                <input type="hidden" name="cartItemId" value="@item.Id" />
+                                <input type="number" name="quantity" value="@item.Quantity" min="1" />
+                                <button type="submit" class="btn btn-sm btn-primary">Update</button>
+                            </form>
+                        </td>
+                        <td>₹@(item.Book.Price * item.Quantity)</td>
+                        <td>
+                            <form asp-action="RemoveFromCart" method="post">
+                                <input type="hidden" name="cartItemId" value="@item.Id" />
+                                <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="3" class="text-end">Grand Total:</th>
+                    <th>₹@Model.Items.Sum(i => i.Book.Price * i.Quantity)</th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+
+        <a asp-action="Shop" class="btn btn-secondary me-2">Continue Shopping</a>
+        <a asp-action="Checkout" class="btn btn-success">Proceed to Checkout</a>
+    }
+</div>

@@ -1,0 +1,64 @@
+﻿@model BookStoreManagement_1.ViewModels.BookFormViewModel
+
+<div class="container mt-5">
+    <div class="card shadow-lg rounded-4 p-4 bg-light">
+        <h2 class="text-center text-primary mb-4">Add Book Details</h2>
+
+        <form asp-action="AddBook" method="post">
+            @Html.AntiForgeryToken()
+
+            <!-- Title -->
+            <div class="mb-3">
+                <label asp-for="Book.Title" class="form-label">Book Title</label>
+                <input asp-for="Book.Title" class="form-control" />
+                <span asp-validation-for="Book.Title" class="text-danger"></span>
+            </div>
+
+            <!-- Author -->
+            <div class="mb-3">
+                <label asp-for="Book.Author" class="form-label">Author</label>
+                <input asp-for="Book.Author" class="form-control" />
+                <span asp-validation-for="Book.Author" class="text-danger"></span>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+                <label asp-for="Book.Description" class="form-label">Description</label>
+                <textarea asp-for="Book.Description" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Book.Description" class="text-danger"></span>
+            </div>
+
+            <!-- Category selection -->
+            <div class="mb-3">
+                <label class="form-label">Select Existing Category</label>
+                <select asp-for="Book.CategoryId" class="form-select" asp-items="Model.Categories">
+                    <option value="">-- Select Category --</option>
+                </select>
+                <span asp-validation-for="Book.CategoryId" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <!-- Price -->
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Book.Price" class="form-label">Price</label>
+                    <input asp-for="Book.Price" type="number" step="0.01" class="form-control" />
+                    <span asp-validation-for="Book.Price" class="text-danger"></span>
+                </div>
+
+                <!-- Quantity in stock -->
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Book.QuantityInStock" class="form-label">Quantity in Stock</label>
+                    <input asp-for="Book.QuantityInStock" type="number" class="form-control" />
+                    <span asp-validation-for="Book.QuantityInStock" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="btn btn-primary w-100">Add Book</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

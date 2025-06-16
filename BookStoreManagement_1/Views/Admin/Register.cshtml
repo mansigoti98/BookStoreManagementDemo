@@ -1,0 +1,86 @@
+﻿@model BookStoreManagement_1.ViewModels.Admin.AdminCreateViewModel
+<div class="container mt-5">
+    <div class="card shadow-lg rounded-4 p-4 bg-light">
+        <h2 class="text-center text-primary mb-4">Admin Registration</h2>
+
+        <form asp-action="Register" method="post">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="FullName" class="form-label"></label>
+                    <input asp-for="FullName" class="form-control" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Password" class="form-label"></label>
+                    <input asp-for="Password" type="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Phone" class="form-label"></label>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+
+                <div class="col-12 mb-3">
+                    <label asp-for="BillingAddress" class="form-label"></label>
+                    <input asp-for="BillingAddress" class="form-control" />
+                    <span asp-validation-for="BillingAddress" class="text-danger"></span>
+                </div>
+
+                <div>
+                    <!-- Country -->
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="CountryId" class="form-label">Country</label>
+                        <select asp-for="CountryId"
+                                class="form-select"
+                                asp-items="Model.Countries"
+                                id="CountryId">
+                            <option value="">Select Country</option>
+                        </select>
+                        <span asp-validation-for="CountryId" class="text-danger"></span>
+                    </div>
+                    <!-- State -->
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="StateId" class="form-label">State</label>
+                        <select asp-for="StateId"
+                                class="form-select"
+                                id="StateId">
+                            <option value="">Select State</option>
+                        </select>
+                        <span asp-validation-for="StateId" class="text-danger"></span>
+                    </div>
+                    <!-- City -->
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="CityId" class="form-label">City</label>
+                        <select asp-for="CityId"
+                                class="form-select"
+                                id="CityId">
+                            <option value="">Select City</option>
+                        </select>
+                        <span asp-validation-for="CityId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-success px-5">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script src="~/js/dropdown.js"></script>
+
+    }
+}

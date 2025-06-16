@@ -1,0 +1,42 @@
+﻿@model BookStoreManagement_1.Models.Order
+
+@{
+    Layout = null;
+}
+
+<div style="font-family: Arial; padding: 20px;">
+    <h2>Order Invoice</h2>
+    <p><strong>Order ID:</strong> @Model.OrderId</p>
+    <p><strong>Order Date:</strong> @Model.OrderDate?.ToString("dd/MM/yyyy")</p>
+    <p><strong>Customer:</strong> @Model.Customer?.FullName</p>
+
+    <table border="1" cellpadding="10" cellspacing="0" width="100%" style="margin-top: 20px;">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderDetails)
+            {
+                <tr>
+                    <td>@item.Book?.Title</td>
+                    <td>@item.Quantity</td>
+                    <td>₹@item.Book?.Price</td>
+                    <td>₹@(item.Book?.Price * item.Quantity)</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="3" style="text-align:right;">Total:</th>
+                <th>
+                    ₹@Model.OrderDetails.Sum(i => i.Book!.Price * i.Quantity)
+                </th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
